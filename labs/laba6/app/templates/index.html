@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="index-hero">
+    <div class="text-center container">
+        <h1 class="hero-title">Образовательный портал</h1>
+        
+        <p class="hero-subtitle mx-auto">
+            Мы создаем и продвигаем технологии онлайн-образования как эффективный 
+            образовательный инструмент, повышающий доступность и качество обучения.
+        </p>
+
+        <div class="search-container mx-auto">
+            <form action="{{ url_for('courses.index') }}" class="row g-2 align-items-center">
+                <div class="col-md-6">
+                    <input autocomplete="off" type="text" class="form-control" id="course-name" name="name" placeholder="Название курса...">
+                </div>
+                
+                <div class="col-md-4">
+                    <select class="form-select" id="course-category" name="category_ids">
+                        <option value="">Все категории</option>
+                        {% for category in categories %}
+                            <option value="{{ category.id }}">{{ category.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary w-100">Найти</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

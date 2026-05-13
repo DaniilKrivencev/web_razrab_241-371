@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-5">
+        <h2 class="text-uppercase font-weight-bold mb-0">Мои курсы</h2>
+        <a href="{{ url_for('courses.new') }}" class="btn btn-primary">Создать новый курс</a>
+    </div>
+
+    <div class="courses-list">
+        {% for course in courses %}
+            <div class="course-card mb-4 p-0">
+                <div class="row g-0">
+                    <div class="col-md-2">
+                        <div class="course-img-wrapper h-100" style="min-height: 150px;">
+                            {% if course.background_image_id %}
+                                <img src="{{ url_for('main.image', image_id=course.background_image_id) }}" alt="{{ course.name }}">
+                            {% else %}
+                                <div class="w-100 h-100 d-flex align-items-center justify-content-center bg-dark text-muted">
+                                    <span class="small">Нет фото</span>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-md-7 p-4">
+                        <h4 class="text-white mb-1">{{ course.name }}</h4>
+                        <p class="text-secondary small mb-0">Дата создания: {{ course.created_at.strftime('%d.%m.%Y') }}</p>
+                    </div>
+                    <div class="col-md-3 p-4 d-flex align-items-center justify-content-end">
+                        <a href="{{ url_for('courses.show', course_id=course.id) }}" class="btn btn-outline-light btn-sm me-2">Просмотр</a>
+                        <button class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal{{ course.id }}">Удалить</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Confirmation -->
+            <div class="modal fade" id="deleteModal{{ course.id }}" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content bg-dark text-white border-secondary">
+                        <div class="modal-header border-secondary">
+                            <h5 class="modal-title">Подтверждение удаления</h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Вы уверены, что хотите удалить курс <strong>"{{ course.name }}"</strong>? Это действие нельзя будет отменить.
+                        </div>
+                        <div class="modal-footer border-secondary">
+                            <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Отмена</button>
+                            <form action="{{ url_for('courses.delete', course_id=course.id) }}" method="POST">
+                                <button type="submit" class="btn btn-danger">Удалить навсегда</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="text-center py-5">
+                <p class="text-secondary mb-4">Вы еще не создали ни одного курса.</p>
+                <a href="{{ url_for('courses.new') }}" class="btn btn-primary">Создать первый курс</a>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

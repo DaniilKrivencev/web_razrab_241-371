@@ -1,0 +1,169 @@
+:root {
+    --bg-color: #0c0d10;
+    --surface-color: #16171d;
+    --primary-color: #9d81ff;
+    --primary-glow: rgba(157, 129, 255, 0.3);
+    --text-color: #ffffff;
+    --text-secondary: #a0a0a0;
+    --border-color: rgba(157, 129, 255, 0.2);
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Header & Footer */
+.navbar {
+    background-color: rgba(12, 13, 16, 0.8) !important;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color);
+    padding: 1rem 0;
+}
+
+footer {
+    background-color: var(--bg-color) !important;
+    border-top: 1px solid var(--border-color);
+    color: var(--text-secondary) !important;
+    font-size: 0.9rem;
+}
+
+.logo {
+    max-width: 175px;
+}
+
+.profile {
+    max-width: 45px;
+    transition: transform 0.3s ease;
+}
+
+.profile:hover {
+    transform: scale(1.1);
+}
+
+/* Home Page Hero & Search */
+.index-hero {
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle at center, #1a1b26 0%, #0c0d10 100%);
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(90deg, #9d81ff, #fff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-subtitle {
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin-bottom: 3rem;
+    line-height: 1.6;
+}
+
+.search-container {
+    background: var(--surface-color);
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 20px var(--primary-glow);
+    width: 100%;
+    max-width: 800px;
+}
+
+.search-container input, .search-container select {
+    background: transparent !important;
+    border: none !important;
+    color: white !important;
+    box-shadow: none !important;
+}
+
+.search-container input::placeholder {
+    color: rgba(255,255,255,0.4);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 12px;
+    padding: 10px 25px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #8a6bff;
+    box-shadow: 0 0 15px var(--primary-glow);
+    transform: translateY(-2px);
+}
+
+/* Course Cards */
+.course-card {
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: 0.3s;
+    height: 100%;
+}
+
+.course-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--primary-color);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+.course-img-wrapper {
+    height: 200px;
+    overflow: hidden;
+}
+
+.course-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: 0.5s;
+}
+
+.course-card:hover .course-img-wrapper img {
+    transform: scale(1.1);
+}
+
+/* Course Show Page */
+.title-area {
+    min-height: 60vh;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.title-area h1 {
+    font-size: 4rem;
+    font-weight: 900;
+}
+
+/* Reviews */
+.review-item {
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.rating-star {
+    color: #ffc107;
+}
+
+.rating-badge {
+    background: var(--primary-glow);
+    color: var(--primary-color);
+    padding: 5px 12px;
+    border-radius: 10px;
+    font-weight: bold;
+}

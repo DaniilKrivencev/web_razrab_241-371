@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% from 'pagination.html' import render_pagination %}
+
+{% block content %}
+<div class="container">
+    <div class="my-5">
+
+        <h2 class="mb-3 text-center text-uppercase font-weight-bold">Каталог курсов</h2>
+
+        <form class="mb-5 mt-3 row align-items-center">
+            <div class="col-md-6 my-3">
+                <input autocomplete="off" type="text" class="form-control" id="course-name" name="name" value="{{ request.args.get('name') or '' }}" placeholder="Название курса">
+            </div>
+            
+            <div class="col-md-4 my-3">
+                <select class="form-select" id="course-category" name="category_ids" title="Категория курса">
+                    <option value="">Выберите категорию</option>
+                    {% for category in categories %}
+                        <option value="{{ category.id }}" {% if category.id | string in request.args.getlist('category_ids') %}selected{% endif %}>{{ category.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-md-2 my-3 align-self-end">
+                <button type="submit" class="btn btn-dark w-100 mt-auto">Найти</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="courses-list mt-3 mb-5">
+        {% for course in courses %}
+            <div class="course-card mb-4 p-0" onclick="window.location.href='{{ url_for('courses.show', course_id=course.id) }}'">
+                <div class="row g-0">
+                    <div class="col-md-3">
+                        <div class="course-img-wrapper h-100" style="min-height: 200px;">
+                            {% if course.background_image_id %}
+                                <img src="{{ url_for('main.image', image_id=course.background_image_id) }}" alt="{{ course.name }}">
+                            {% else %}
+                                <div class="w-100 h-100 d-flex align-items-center justify-content-center bg-dark text-muted">
+                                    <span>Нет изображения</span>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-md-9 p-4">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <h4 class="text-uppercase mb-0 text-white">{{ course.name }}</h4>
+                            <div class="rating-badge">
+                                <span>★</span> {{ "%.2f" | format(course.rating) }}
+                            </div>
+                        </div>
+                        <p class="text-secondary small mb-3">Автор: {{ course.author.full_name }} | Категория: {{ course.category.name }}</p>
+                        <p class="text-secondary">{{ course.short_desc | truncate(250) }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="mb-5">
+        {{ render_pagination(pagination, request.endpoint, search_params) }}
+    </div>
+
+    {% if current_user.is_authenticated %}
+        <div class="text-center my-3">
+            <a class="btn btn-lg btn-dark" href="{{ url_for('courses.new') }}">Создать курс</a>
+        </div>
+    {% endif %}
+
+</div>
+{% endblock %}
