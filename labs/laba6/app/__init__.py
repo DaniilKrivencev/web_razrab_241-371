@@ -21,6 +21,9 @@ def create_app(test_config=None):
 
     db.init_app(app)
     migrate = Migrate(app, db)
+    
+    with app.app_context():
+        db.create_all()
 
     init_login_manager(app)
 
