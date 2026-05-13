@@ -2,35 +2,35 @@
 
 {% block content %}
 <div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
-    <div class="auth-card p-5 shadow-lg" style="max-width: 450px; width: 100%; background: rgba(30, 31, 38, 0.9); border: 1px solid rgba(255,255,255,0.1); border-radius: 30px;">
+    <div class="auth-card p-5 shadow-lg" style="max-width: 450px; width: 100%; background: #1a1b22; border: 2px solid #9d81ff; border-radius: 30px;">
         <div class="text-center mb-4">
-            <h2 class="fw-bold mb-2" style="color: #ffffff !important;">С возвращением!</h2>
-            <p style="color: rgba(255,255,255,0.7) !important;">Войдите в свой аккаунт для управления курсами</p>
+            <h2 class="fw-bold mb-2" style="color: #ffffff !important; text-shadow: 0 0 10px rgba(255,255,255,0.5);">С возвращением!</h2>
+            <p style="color: #ffffff !important; opacity: 1 !important; font-size: 1.1rem;">Войдите в свой аккаунт для управления курсами</p>
         </div>
 
         <form method="POST">
             <div class="mb-4">
-                <label for="login" class="form-label small text-uppercase tracking-widest" style="color: #ffffff !important; opacity: 0.9;">Логин</label>
-                <input type="text" name="login" class="form-control premium-input" id="login" placeholder="Введите ваш логин" required style="background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1); color: #fff;">
+                <label for="login" class="form-label small text-uppercase fw-bold" style="color: #9d81ff !important; display: block; margin-bottom: 10px;">Логин</label>
+                <input type="text" name="login" class="form-control premium-input" id="login" value="user" required style="background: #25262e !important; border: 1px solid #9d81ff !important; color: #ffffff !important; padding: 15px !important; border-radius: 12px !important;">
             </div>
             
             <div class="mb-4">
                 <div class="d-flex justify-content-between">
-                    <label for="password" class="form-label small text-uppercase tracking-widest" style="color: #ffffff !important; opacity: 0.9;">Пароль</label>
-                    <a href="#" class="text-decoration-none small fw-bold" style="color: #9d81ff !important;">Забыли пароль?</a>
+                    <label for="password" class="form-label small text-uppercase fw-bold" style="color: #9d81ff !important; display: block; margin-bottom: 10px;">Пароль</label>
+                    <a href="#" class="text-decoration-none small fw-bold" style="color: #9d81ff !important; opacity: 0.8;">Забыли пароль?</a>
                 </div>
-                <input type="password" name="password" class="form-control premium-input" id="password" placeholder="••••••••" required style="background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1); color: #fff;">
+                <input type="password" name="password" class="form-control premium-input" id="password" value="secret" required style="background: #25262e !important; border: 1px solid #9d81ff !important; color: #ffffff !important; padding: 15px !important; border-radius: 12px !important;">
             </div>
 
             <div class="mb-4 form-check">
-                <input type="checkbox" class="form-check-input" id="remember_me">
-                <label class="form-check-label small" for="remember_me" style="color: rgba(255,255,255,0.7) !important;">Запомнить меня</label>
+                <input type="checkbox" class="form-check-input" id="remember_me" checked>
+                <label class="form-check-label" for="remember_me" style="color: #ffffff !important; font-size: 0.9rem;">Запомнить меня</label>
             </div>
 
-            <button type="submit" class="btn btn-accent w-100 py-3 fw-bold text-uppercase tracking-widest mb-3" style="background: #9d81ff !important; color: #ffffff !important; border: none; border-radius: 12px;">Войти</button>
+            <button type="submit" class="btn btn-accent w-100 py-3 fw-bold text-uppercase mb-3" style="background: #9d81ff !important; color: #ffffff !important; border: none; border-radius: 15px; font-size: 1.1rem; box-shadow: 0 5px 15px rgba(157, 129, 255, 0.4);">Войти в аккаунт</button>
             
             <div class="text-center mt-4">
-                <p class="small" style="color: rgba(255,255,255,0.6) !important;">Еще нет аккаунта? <a href="#" class="text-decoration-none fw-bold" style="color: #9d81ff !important;">Зарегистрироваться</a></p>
+                <p style="color: #ffffff !important;">Еще нет аккаунта? <a href="#" class="text-decoration-none fw-bold" style="color: #9d81ff !important;">Зарегистрироваться</a></p>
             </div>
         </form>
     </div>
@@ -38,11 +38,8 @@
 
 <style>
     .premium-input:focus {
-        background: rgba(255, 255, 255, 0.1) !important;
-        border-color: #9d81ff !important;
-        box-shadow: 0 0 15px rgba(157, 129, 255, 0.4) !important;
-        color: #fff !important;
+        background: #2a2b33 !important;
+        box-shadow: 0 0 20px rgba(157, 129, 255, 0.5) !important;
     }
-    .tracking-widest { letter-spacing: 0.1em; }
 </style>
 {% endblock %}
