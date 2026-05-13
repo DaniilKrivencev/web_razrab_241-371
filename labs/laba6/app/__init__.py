@@ -37,6 +37,18 @@ def create_app(test_config=None):
             db.session.bulk_save_objects(roles)
             db.session.commit()
 
+        # Создаем категории, если их нет
+        from .models import Category
+        if not db.session.query(Category).first():
+            categories = [
+                Category(name='Программирование'),
+                Category(name='Дизайн'),
+                Category(name='Маркетинг'),
+                Category(name='Математика')
+            ]
+            db.session.bulk_save_objects(categories)
+            db.session.commit()
+
         # Создаем тестового пользователя
         if not db.session.query(User).filter_by(login='user').first():
             test_user = User(
