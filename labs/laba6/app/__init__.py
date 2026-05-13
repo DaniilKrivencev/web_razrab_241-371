@@ -28,7 +28,7 @@ def create_app(test_config=None):
         from werkzeug.security import generate_password_hash
         
         # Создаем роли, если их нет
-        if not Role.query.first():
+        if not db.session.query(Role).first():
             roles = [
                 Role(id=1, name='Администратор', description='Полный доступ'),
                 Role(id=2, name='Преподаватель', description='Управление курсами'),
@@ -38,7 +38,7 @@ def create_app(test_config=None):
             db.session.commit()
 
         # Создаем тестового пользователя
-        if not User.query.filter_by(login='user').first():
+        if not db.session.query(User).filter_by(login='user').first():
             test_user = User(
                 login='user',
                 password_hash=generate_password_hash('qwerty'),
