@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header class="page-header text-center">
+    <div class="container animate-fadedown">
+        <div class="header-badge">КАРТОЧКА ПОЛЬЗОВАТЕЛЯ</div>
+        <h1 class="header-title">{{ u.fio }}</h1>
+        <p class="header-subtitle">Зарегистрирован: {{ u.created_at.strftime('%d.%m.%Y %H:%M') }}</p>
+    </div>
+</header>
+
+<div class="container py-5 animate-fadeup mw-600">
+    <div class="card bg-dark-soft border-0 shadow-lg rounded-4 overflow-hidden">
+        <div class="card-body p-0">
+            <table class="table table-dark table-hover mb-0">
+                <tbody>
+                    <tr><th class="px-4 py-3 text-secondary text-uppercase small ls-1 border-0">ID</th><td class="px-4 py-3 border-0">{{ u.id }}</td></tr>
+                    <tr><th class="px-4 py-3 text-secondary text-uppercase small ls-1">Логин</th><td class="px-4 py-3 fw-medium text-primary">{{ u.login }}</td></tr>
+                    <tr><th class="px-4 py-3 text-secondary text-uppercase small ls-1">Фамилия</th><td class="px-4 py-3">{{ u.last_name or '—' }}</td></tr>
+                    <tr><th class="px-4 py-3 text-secondary text-uppercase small ls-1">Имя</th><td class="px-4 py-3 fw-bold">{{ u.first_name }}</td></tr>
+                    <tr><th class="px-4 py-3 text-secondary text-uppercase small ls-1">Отчество</th><td class="px-4 py-3">{{ u.middle_name or '—' }}</td></tr>
+                    <tr><th class="px-4 py-3 text-secondary text-uppercase small ls-1">Роль</th><td class="px-4 py-3">
+                        <span class="badge bg-primary-soft text-primary rounded-pill px-3">{{ u.role_obj.name if u.role_obj else 'Нет роли' }}</span>
+                    </td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="text-center mt-4">
+        <a href="{{ url_for('index') }}" class="btn btn-primary rounded-pill px-5 shadow-glow">Вернуться</a>
+    </div>
+</div>
+{% endblock %}

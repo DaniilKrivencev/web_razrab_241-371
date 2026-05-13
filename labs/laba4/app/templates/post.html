@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header class="page-header text-center">
+    <div class="container animate-fadedown">
+        <div class="header-badge">Блог · Чтение статьи</div>
+        <h1 class="header-title">{{ post.title }}</h1>
+        <p class="header-subtitle">{{ post.date }} · {{ post.author }}</p>
+    </div>
+</header>
+
+<div class="container py-5 animate-fadeup mw-800">
+    <div class="post-content bg-dark-soft border-0 shadow-lg rounded-4 overflow-hidden p-5">
+        <div class="post-featured-image mb-5 text-center">
+            <img src="{{ url_for('static', filename='images/' + post.image_id) }}" class="img-fluid rounded-4 shadow-lg" alt="{{ post.title }}" style="max-height: 500px; width: 100%; object-fit: cover;">
+        </div>
+        
+        <div class="post-body text-secondary lead mb-5 lh-lg">
+            {{ post.text }}
+        </div>
+
+        <!-- COMMENT SECTION -->
+        <hr class="border-secondary mb-5 opacity-25">
+        <div class="post-comments">
+            <h3 class="fw-bold mb-4">Комментарии ({{ post.comments|length }})</h3>
+            <div class="d-flex flex-column gap-4">
+                {% for comment in post.comments %}
+                <div class="comment-item bg-dark border border-secondary p-4 rounded-4 shadow-sm">
+                    <div class="comment-meta d-flex align-items-center mb-3">
+                        <div class="avatar-sm me-2 bg-primary-soft text-primary rounded-circle d-flex align-items-center justify-content-center fw-bold small" style="width: 30px; height: 30px;">{{ comment.author[0] }}</div>
+                        <span class="fw-bold small">{{ comment.author }}</span>
+                    </div>
+                    <p class="mb-0 text-secondary">{{ comment.text }}</p>
+                </div>
+                {% endfor %}
+            </div>
+            
+            <div class="mt-5 text-center">
+                <a href="{{ url_for('posts') }}" class="btn btn-outline-secondary rounded-pill px-5 shadow-sm">← Вернуться к списку статей</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% from "macros/form.html" import user_form %}
+
+{% block content %}
+<header class="page-header text-center">
+    <div class="container animate-fadedown">
+        <div class="header-badge">РЕДАКТИРОВАНИЕ</div>
+        <h1 class="header-title">Изменить данные</h1>
+        <p class="header-subtitle text-warning">Логин и пароль не подлежат редактированию</p>
+    </div>
+</header>
+
+<div class="container py-5 animate-fadeup mw-600">
+    <div class="card bg-dark-soft border-0 shadow-lg rounded-4 p-4">
+        {{ user_form(url_for('edit_user', user_id=user.id), roles, errors, form_data, is_edit=True) }}
+    </div>
+    <div class="text-center mt-4">
+        <a href="{{ url_for('index') }}" class="btn btn-link text-secondary text-decoration-none">← Отмена</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="page-wrap">
+
+  <div class="page-header">
+    <a href="{{ url_for('index') }}" class="page-back">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+      Назад
+    </a>
+    <div class="page-title-block">
+      <div class="page-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+        </svg>
+      </div>
+      <h1 class="page-title">Валидация номера телефона</h1>
+    </div>
+    <p class="page-desc">Введите номер телефона. Допустимые форматы: <code>+7 (123) 456-78-90</code>, <code>8(123)4567890</code>, <code>123.456.78.90</code></p>
+  </div>
+
+  <!-- ФОРМА -->
+  <div class="form-card">
+    <form method="post" action="{{ url_for('phone') }}" id="phone-form" novalidate>
+      <div class="form-group">
+        <label class="form-label" for="phone-input">Номер телефона</label>
+        <div class="phone-input-wrap">
+          <input
+            class="form-input {% if error %}is-invalid{% elif formatted %}is-valid{% endif %}"
+            type="text"
+            id="phone-input"
+            name="phone"
+            placeholder="+7 (___) ___-__-__"
+            value="{{ phone_input }}"
+            autocomplete="tel"
+          >
+          {% if error %}
+          <div class="invalid-feedback">{{ error }}</div>
+          {% endif %}
+        </div>
+      </div>
+      <button type="submit" class="btn-submit" id="phone-submit">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07"/><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        Проверить
+      </button>
+    </form>
+  </div>
+
+  <!-- РЕЗУЛЬТАТ: успех -->
+  {% if formatted %}
+  <div class="status-card status-card--success" id="phone-result">
+    <div class="status-card-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+    </div>
+    <div class="status-card-body">
+      <div class="status-card-title">Номер корректен</div>
+      <div class="status-card-text">
+        Отформатированный номер: <strong class="formatted-phone">{{ formatted }}</strong>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- ПОДСКАЗКА по форматам -->
+  <div class="hint-block" style="margin-top: 2rem;">
+    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+    Примеры корректных номеров:
+    <code>+7 (123) 456-75-90</code> &nbsp;·&nbsp;
+    <code>8(123)4567590</code> &nbsp;·&nbsp;
+    <code>123.456.75.90</code>
+  </div>
+
+</div>
+
+{% endblock %}

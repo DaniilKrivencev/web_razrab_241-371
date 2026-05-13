@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="page-wrap">
+
+  <div class="page-header">
+    <a href="{{ url_for('index') }}" class="page-back">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+      Назад
+    </a>
+    <div class="page-title-block">
+      <div class="page-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        </svg>
+      </div>
+      <h1 class="page-title">Параметры формы</h1>
+    </div>
+    <p class="page-desc">Заполните форму и нажмите «Отправить» — данные будут переданы через метод POST и отображены ниже.</p>
+  </div>
+
+  <!-- ФОРМА -->
+  <div class="form-card">
+    <form method="post" action="{{ url_for('form_params') }}" id="form-params-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="fp-name">Имя</label>
+          <input class="form-input" type="text" id="fp-name" name="name"
+                 placeholder="Введите имя" value="{{ form_data.name[0] if form_data and form_data.name else '' }}">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="fp-email">Email</label>
+          <input class="form-input" type="text" id="fp-email" name="email"
+                 placeholder="example@mail.ru" value="{{ form_data.email[0] if form_data and form_data.email else '' }}">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="fp-message">Сообщение</label>
+        <textarea class="form-input form-textarea" id="fp-message" name="message"
+                  rows="3" placeholder="Произвольный текст…">{{ form_data.message[0] if form_data and form_data.message else '' }}</textarea>
+      </div>
+      <button type="submit" class="btn-submit" id="form-params-submit">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+        Отправить
+      </button>
+    </form>
+  </div>
+
+  <!-- РЕЗУЛЬТАТ -->
+  {% if form_data is not none %}
+  <div class="section-header" style="margin-top: 2.5rem;">
+    <span class="section-title">Полученные данные</span>
+    <span class="section-line"></span>
+  </div>
+
+  {% if form_data %}
+  <div class="data-table-wrap">
+    <table class="data-table" id="form-params-table">
+      <thead>
+        <tr>
+          <th>Поле</th>
+          <th>Значение</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for key, values in form_data.items() %}
+        {% for val in values %}
+        <tr>
+          <td><span class="key-badge">{{ key }}</span></td>
+          <td class="val-cell">{{ val if val else '—' }}</td>
+        </tr>
+        {% endfor %}
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div class="empty-state">
+    <p>Форма отправлена, но данные пусты</p>
+  </div>
+  {% endif %}
+  {% endif %}
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header class="page-header text-center">
+    <div class="container animate-fadedown">
+        <div class="header-badge">АУТЕНТИФИКАЦИЯ</div>
+        <h1 class="header-title">Вход в систему</h1>
+        <p class="header-subtitle">Используйте данные из базы данных</p>
+    </div>
+</header>
+
+<div class="container py-5 animate-fadeup mw-600">
+    <div class="card bg-dark-soft border-0 shadow-lg rounded-4 p-4">
+        <form method="POST">
+            <div class="mb-3">
+                <label for="login" class="form-label">Логин</label>
+                <input type="text" class="form-control" id="login" name="login" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Пароль</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <div class="mb-4 form-check">
+                <input type="checkbox" class="form-check-input" id="remember" name="remember">
+                <label class="form-check-label text-secondary" for="remember">Запомнить меня</label>
+            </div>
+            <div class="d-grid mb-3">
+                <button type="submit" class="btn btn-primary btn-lg rounded-pill shadow-glow">Войти</button>
+            </div>
+            <div class="text-center small text-secondary">
+                По умолчанию: Логин: <span class="text-primary">admin</span> Пароль: <span class="text-primary">admin-Qwerty1234</span>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

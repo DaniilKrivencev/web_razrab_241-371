@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-wrap animate-fadeup">
+    <div class="page-header text-center mb-5">
+        <div class="hero-badge mx-auto animate-fadedown">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-shield-lock me-1" viewBox="0 0 16 16">
+                <path d="M5.338 1.59a.5.5 0 0 1 .42-.19A4.99 4.99 0 0 1 10.75 4.5v1.258l1.458.243a.5.5 0 0 1 .417.492v5.014c0 .248-.18.46-.425.493L11 12.181V14.5a.5.5 0 0 1-1 0v-2.319l-1.25-.208a.5.5 0 0 1-.417-.493V6.467l-1.458-.243a.5.5 0 0 1-.417-.492V4.5a4.99 4.99 0 0 1 4.5-4.91zm.412 1.092A3.99 3.99 0 0 0 6.75 4.5v1.075l1.5.25V4.5a3.99 3.99 0 0 0-2.5-3.818z"/>
+            </svg>
+            Панель Администратора
+        </div>
+        <h1 class="hero-title">Управление пользователями</h1>
+        <p class="hero-subtitle">Контроль доступа, управление ролями и аудит активности в едином зашифрованном пространстве.</p>
+    </div>
+
+    <div class="glass-card overflow-hidden">
+        <div class="p-4 d-flex justify-content-between align-items-center border-bottom border-light-subtle">
+            <div class="d-flex align-items-center gap-2">
+                <span class="brand-dot"></span>
+                <span class="fw-bold text-white ls-1 text-uppercase small">Реестр учетных записей</span>
+            </div>
+            {% if current_user.is_authenticated and current_user.role_obj.name == 'Администратор' %}
+            <a href="{{ url_for('create_user') }}" class="btn-premium py-2 px-4 shadow-sm" style="text-decoration: none; font-size: 0.85rem;">
+                + Новый пользователь
+            </a>
+            {% endif %}
+        </div>
+
+        <div class="glass-card table-responsive animate-fadeup">
+            <table class="premium-table">
+                <thead>
+                    <tr>
+                        <th class="col-id">№</th>
+                        <th class="col-user">Пользователь</th>
+                        <th class="col-role">Роль в системе</th>
+                        <th class="col-actions text-end">Действия</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for u in users %}
+                    <tr>
+                        <td class="col-id">
+                            <span class="id-badge">#{{ loop.index }}</span>
+                        </td>
+                        <td class="col-user">
+                            <div class="user-info-cell">
+                                <div class="avatar-circle">{{ u.first_name[0] }}</div>
+                                <div class="user-details">
+                                    <span class="user-name">{{ u.last_name }} {{ u.first_name }}</span>
+                                    <span class="user-login">@{{ u.login }}</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="col-role">
+                            <span class="role-pill role-pill--{{ 'admin' if u.role_id == 1 else 'user' }}">
+                                {{ u.role_obj.name if u.role_obj else 'Гость' }}
+                            </span>
+                        </td>
+                        <td class="col-actions text-end">
+                            <div class="btn-group-premium">
+                                <a href="{{ url_for('view_user', user_id=u.id) }}" class="btn-action btn-action--view" title="Просмотр">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                                    <span>Просмотр</span>
+                                </a>
+                                <a href="{{ url_for('edit_user', user_id=u.id) }}" class="btn-action btn-action--edit" title="Редактировать">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                                    <span>Ред.</span>
+                                </a>
+                                {% if current_user.role_id == 1 %}
+                                <button type="button" class="btn-action btn-action--delete" data-bs-toggle="modal" data-bs-target="#deleteModal" data-user-id="{{ u.id }}" data-user-name="{{ u.login }}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+                                    <span>Удалить</span>
+                                </button>
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Модальное окно удаления -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content glass-card border-0" style="background: rgba(20, 20, 25, 0.95);">
+            <div class="modal-header border-bottom-0 pb-0">
+                <h5 class="modal-title fw-bold">Подтверждение удаления</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body py-4">
+                <p class="mb-0 text-secondary" id="deleteText"></p>
+            </div>
+            <div class="modal-footer border-top-0 pt-0">
+                <button type="button" class="btn-read" data-bs-dismiss="modal">Отмена</button>
+                <form id="deleteForm" method="POST" class="d-inline">
+                    <button type="submit" class="btn-premium px-4 bg-danger" style="background: var(--danger);">Удалить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function confirmDelete(userId, fio) {
+    const modal = new bootstrap.Modal(document.getElementById('deleteModal'));
+    document.getElementById('deleteText').innerHTML = `Вы действительно хотите безвозвратно удалить учетную запись <strong>${fio}</strong>? Это действие нельзя будет отменить.`;
+    document.getElementById('deleteForm').action = `/laba5/users/${userId}/delete`;
+    modal.show();
+}
+</script>
+{% endblock %}

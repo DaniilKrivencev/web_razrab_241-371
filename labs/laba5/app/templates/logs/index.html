@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-5 animate-fadeup">
+    <!-- HEADER -->
+    <header class="text-center mb-5">
+        <span class="badge-premium mb-2">Аналитика</span>
+        <h1 class="display-5 fw-bold text-white mb-4">Журнал посещений</h1>
+        
+        <div class="d-flex justify-content-center gap-3 mt-4">
+            <a href="{{ url_for('reports.pages_stat') }}" class="btn-read py-2 px-4 d-flex align-items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                Статистика страниц
+            </a>
+            <a href="{{ url_for('reports.users_stat') }}" class="btn-read py-2 px-4 d-flex align-items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                Статистика пользователей
+            </a>
+        </div>
+    </header>
+
+    <!-- LOGS TABLE -->
+    <div class="glass-card table-responsive overflow-hidden">
+        <table class="premium-table mb-0">
+            <thead>
+                <tr>
+                    <th class="col-id text-center">№</th>
+                    <th>Пользователь</th>
+                    <th>Страница</th>
+                    <th class="text-end pe-4">Дата и время</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for log in logs %}
+                <tr>
+                    <td class="col-id text-center">
+                        <span class="id-badge">#{{ (pagination.page - 1) * pagination.per_page + loop.index }}</span>
+                    </td>
+                    <td>
+                        <div class="user-info-cell">
+                            <div class="avatar-circle" style="width: 32px; height: 32px; font-size: 0.85rem;">
+                                {{ log.user_obj.first_name[0] if log.user_obj else '?' }}
+                            </div>
+                            <div>
+                                <span class="user-name" style="font-size: 0.9rem;">
+                                    {{ log.user_obj.first_name if log.user_obj else 'Аноним' }}
+                                </span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <span class="badge" style="background: rgba(124, 92, 252, 0.1); border: 1px solid rgba(124, 92, 252, 0.2); color: var(--accent-light); font-family: 'Inter', monospace; font-size: 0.8rem; padding: 0.4rem 0.7rem; border-radius: 6px;">
+                            {{ log.path }}
+                        </span>
+                    </td>
+                    <td class="text-end pe-4">
+                        <span class="text-secondary small">{{ log.created_at.strftime('%d.%m.%Y %H:%M:%S') }}</span>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- PAGINATION -->
+        {% if pagination.pages > 1 %}
+        <nav class="pagination-premium py-4 border-top border-secondary text-center">
+            <div class="d-flex justify-content-center gap-2">
+                {% if pagination.page > 1 %}
+                <a href="{{ url_for('reports.index', page=pagination.page-1) }}" class="pagination-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+                </a>
+                {% endif %}
+
+                {% for p in range(1, pagination.pages + 1) %}
+                <a href="{{ url_for('reports.index', page=p) }}" class="pagination-btn {{ 'active' if p == pagination.page else '' }}">
+                    {{ p }}
+                </a>
+                {% endfor %}
+
+                {% if pagination.page < pagination.pages %}
+                <a href="{{ url_for('reports.index', page=pagination.page+1) }}" class="pagination-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+                </a>
+                {% endif %}
+            </div>
+        </nav>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

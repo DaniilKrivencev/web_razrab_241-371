@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="about-wrap">
+  <div class="about-card">
+
+    <!-- Аватар -->
+    <div class="about-avatar-wrap">
+      <img
+        class="about-avatar"
+        src="{{ url_for('static', filename='images/avatar.jpg') }}"
+        alt="Фото автора"
+      >
+    </div>
+
+    <!-- Информация -->
+    <div>
+      <h1 class="about-title">Кривенцев Даниил</h1>
+      <span class="about-role">Группа 241-371 · Студент</span>
+
+      <p class="about-text">
+        Привет! Меня зовут Даниил, я студент 4 семестра. Этот блог — моя лабораторная работа по веб-разработке.
+        Здесь я экспериментирую с Flask, Jinja2-шаблонами, CSS и фронтенд-дизайном.
+      </p>
+      <p class="about-text" style="margin-top: 1rem;">
+        В проекте реализован динамический блог с генерацией случайных постов через библиотеку Faker,
+        системой комментариев с ответами и полным покрытием функционала автотестами (pytest).
+      </p>
+
+      <div class="about-stats">
+        <div>
+          <div class="about-stat-value">5</div>
+          <div class="about-stat-label">Постов в блоге</div>
+        </div>
+        <div>
+          <div class="about-stat-value">19</div>
+          <div class="about-stat-label">Автотестов</div>
+        </div>
+        <div>
+          <div class="about-stat-value">4</div>
+          <div class="about-stat-label">Страницы</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

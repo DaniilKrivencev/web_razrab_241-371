@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-wrap animate-fadeup">
+    <div class="page-header text-center mb-5">
+        <div class="hero-badge mx-auto animate-fadedown">Инсайты & Технологии</div>
+        <h1 class="hero-title">Статьи сообщества</h1>
+        <p class="hero-subtitle">Вдохновение, опыт и лучшие практики от ведущих инженеров нашего комьюнити.</p>
+    </div>
+
+    <div class="posts-grid">
+        {% for p in posts %}
+        <div class="post-card glass-card">
+            <div class="post-card-image-wrap">
+                <img src="{{ url_for('static', filename='img/' + p.image_id) }}" alt="{{ p.title }}" loading="lazy">
+                <div class="post-card-image-overlay"></div>
+            </div>
+            <div class="post-card-body p-4">
+                <div class="post-card-meta mb-2">
+                    <span class="text-muted small">{{ p.date }}</span>
+                    <span class="post-card-meta-dot text-muted mx-1">•</span>
+                    <span class="text-muted small">5 мин на чтение</span>
+                </div>
+                <h3 class="post-card-title h5 fw-bold text-white mb-3">{{ p.title }}</h3>
+                <p class="post-card-excerpt text-secondary small mb-4">
+                    {{ p.text[:140] }}...
+                </p>
+                <div class="post-card-footer d-flex justify-content-between align-items-center mt-auto">
+                    <div class="post-card-author d-flex align-items-center gap-2">
+                        <div class="author-avatar-sm" style="width: 24px; height: 24px; font-size: 0.75rem;">{{ p.author[0] }}</div>
+                        <span class="text-secondary small fw-bold">{{ p.author.split()[-1] }}</span>
+                    </div>
+                    <a href="{{ url_for('post', index=loop.index0) }}" class="btn-read py-1 px-3" style="font-size: 0.8rem; text-decoration: none;">
+                        Читать
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="ms-1"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

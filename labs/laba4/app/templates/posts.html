@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header class="page-header text-center">
+    <div class="container animate-fadedown">
+        <div class="header-badge">Блог</div>
+        <h1 class="header-title">Статьи из нашего сообщества</h1>
+        <p class="header-subtitle text-secondary">Вдохновение, опыт и полезные советы для разработчиков</p>
+    </div>
+</header>
+
+<div class="container py-5 animate-fadeup mw-800">
+    <div class="posts-grid d-flex flex-column gap-5">
+        {% for p in posts %}
+        <article class="post-card card bg-dark-soft border-0 shadow-lg rounded-4 overflow-hidden h-100">
+            <div class="row g-0">
+                <div class="col-md-5">
+                    <img src="{{ url_for('static', filename='images/' + p.image_id) }}" class="img-fluid h-100 object-fit-cover" alt="{{ p.title }}" style="min-height: 250px;">
+                </div>
+                <div class="col-md-7 d-flex flex-column">
+                    <div class="card-body p-4 d-flex flex-column h-100">
+                        <div class="post-meta mb-2 small text-secondary">
+                            <span class="me-3">{{ p.date }}</span>
+                            <span>{{ p.author }}</span>
+                        </div>
+                        <h2 class="card-title h4 fw-bold mb-3">{{ p.title }}</h2>
+                        <p class="card-text text-secondary mb-4">{{ p.text[:150] }}...</p>
+                        <div class="mt-auto">
+                            <a href="{{ url_for('post', index=loop.index0) }}" class="btn btn-primary rounded-pill px-4 shadow-glow">Читать полностью</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

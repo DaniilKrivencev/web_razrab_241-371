@@ -1,0 +1,133 @@
+﻿<!doctype html>
+<html lang='ru'>
+<head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <title>Flask Labs Portal</title>
+    <link rel='preconnect' href='https://fonts.googleapis.com'>
+    <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
+    <link href='https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap' rel='stylesheet'>
+    <style>
+        :root {
+            --bg: #0c0d10;
+            --surface: #16181d;
+            --primary: #9d81ff;
+            --text: #e1e1e6;
+            --text-muted: #8d8d99;
+        }
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 900px;
+            text-align: center;
+            padding: 2rem;
+        }
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #fff 0%, #9d81ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        p.subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            letter-spacing: 1px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            width: 100%;
+        }
+        .card {
+            background-color: var(--surface);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 2rem;
+            border-radius: 1.5rem;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at top right, rgba(157, 129, 255, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .card:hover::before { opacity: 1; }
+        .card h2 {
+            font-size: 1.5rem;
+            margin: 1rem 0 0.5rem;
+        }
+        .card span {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        .lab-num {
+            background: rgba(157, 129, 255, 0.1);
+            color: var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+        footer {
+            margin-top: 4rem;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+    <div class='container'>
+        <h1>Flask Labs Portal</h1>
+        <p class='subtitle'>Кривенцев Даниил Евгеньевич · Группа 241-371</p>
+        
+        <div class='grid'>
+            <a href='/laba1' class='card'>
+                <div class='lab-num'>Лаба 1</div>
+                <h2>DevBlog</h2>
+                <span>Персональный блог с генерацией постов</span>
+            </a>
+            <a href='/laba2' class='card'>
+                <div class='lab-num'>Лаба 2</div>
+                <h2>Requests & Forms</h2>
+                <span>Валидация, Cookies и параметры запроса</span>
+            </a>
+            <a href='/laba3' class='card'>
+                <div class='lab-num'>Лаба 3</div>
+                <h2>Auth & Sessions</h2>
+                <span>Аутентификация пользователей и сессии</span>
+            </a>
+        </div>
+
+        <footer>© 2024 · Web Development Portfolio</footer>
+    </div>
+</body>
+</html>

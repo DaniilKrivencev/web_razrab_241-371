@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="post-detail-wrap animate-fadeup">
+    <div class="container mw-800">
+        <a href="{{ url_for('posts') }}" class="post-detail-back">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="me-1"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            Назад к статьям
+        </a>
+
+        <header class="post-detail-header mb-4">
+            <h1 class="post-detail-title h2 fw-bold text-white">{{ post.title }}</h1>
+            <div class="post-detail-meta d-flex align-items-center gap-3 py-3 border-bottom border-light-subtle">
+                <div class="post-detail-meta-item d-flex align-items-center gap-2">
+                    <div class="author-avatar-sm" style="width: 24px; height: 24px; font-size: 0.75rem;">{{ post.author[0] }}</div>
+                    <span class="text-secondary small fw-bold">{{ post.author }}</span>
+                </div>
+                <div class="text-muted small">•</div>
+                <div class="post-detail-meta-item d-flex align-items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    <span class="text-secondary small">{{ post.date }}</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="post-image-container mb-5">
+            <img src="{{ url_for('static', filename='img/' + post.image_id) }}" class="img-fluid rounded-4 shadow-lg w-100" alt="{{ post.title }}" style="max-height: 440px; object-fit: cover; border: 1px solid var(--border);">
+        </div>
+
+        <div class="post-detail-text text-secondary lh-lg fs-5 mb-5">
+            {{ post.text }}
+            <p class="mt-4">{{ post.text }}</p>
+        </div>
+
+        <hr class="post-separator opacity-25">
+
+        <section class="comments-section mt-5">
+            <h3 class="fw-bold text-white mb-4 d-flex align-items-center gap-2">
+                Комментарии 
+                <span class="badge rounded-pill bg-dark-soft border border-secondary" style="font-size: 0.85rem; font-weight: normal; color: var(--text-secondary);">{{ post.comments|length }}</span>
+            </h3>
+
+            <div class="d-flex flex-column gap-3 mb-5">
+                {% for comment in post.comments %}
+                <div class="comment-item glass-card p-4">
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <div class="author-avatar-sm" style="width: 32px; height: 32px; font-size: 0.85rem;">{{ comment.author[0] }}</div>
+                        <span class="fw-bold text-white small">{{ comment.author }}</span>
+                    </div>
+                    <p class="text-secondary small mb-0">{{ comment.text }}</p>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="comment-form-section glass-card p-4 mt-5">
+                <h4 class="comment-form-title h6 fw-bold text-white mb-3 d-flex align-items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    Ваш отзыв
+                </h4>
+                <textarea class="comment-textarea small" placeholder="Напишите, что вы думаете об этой статье..."></textarea>
+                <div class="text-end mt-3">
+                    <button class="btn-premium py-2 px-5">Отправить комментарий</button>
+                </div>
+            </div>
+        </section>
+
+        <div class="text-center py-5 mt-4">
+            <a href="{{ url_for('posts') }}" class="btn-read px-5">Назад к списку всех статей</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
