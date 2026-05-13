@@ -22,6 +22,15 @@ class Base(DeclarativeBase):
 
 db = SQLAlchemy(model_class=Base)
 
+class Role(Base):
+    __tablename__ = 'roles'
+    id: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[str] = mapped_column(String(100))
+    description: Mapped[str] = mapped_column(Text)
+
+    def __repr__(self):
+        return '<Role %r>' % self.name
+
 class Category(Base):
     __tablename__ = 'categories'
 
@@ -42,7 +51,10 @@ class User(Base, UserMixin):
     middle_name: Mapped[Optional[str]] = mapped_column(String(100))
     login: Mapped[str] = mapped_column(String(100), unique=True)
     password_hash: Mapped[str] = mapped_column(String(200))
+    role_id: Mapped[int] = mapped_column(ForeignKey("roles.id"))
     created_at: Mapped[datetime] = mapped_column(default=datetime.now)
+
+    role: Mapped["Role"] = relationship()
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
