@@ -1,34 +1,79 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="d-flex h-100 bg-light">
-    <form class="container-fluid m-auto bg-white p-5 border round" method="POST" style="max-width: 30rem;">
-        <div class="form-floating mb-3">
-            <input autocomplete="off" type="text" class="form-control" name="login" id="login" placeholder="login"
-                value="{{ request.form.login }}" required>
-            <label for="login">Логин</label>
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="auth-card p-5" style="max-width: 450px; width: 100%;">
+        <div class="text-center mb-4">
+            <h2 class="fw-bold text-white mb-2">С возвращением!</h2>
+            <p class="text-muted">Войдите в свой аккаунт для управления курсами</p>
         </div>
-    
-        <div class="form-floating mb-3">
-            <input type="password" class="form-control" id="password" name="password" placeholder="Password">
-            <label for="password">Пароль</label>
-        </div>
-    
-        <div class="row mb-3 justify-content-between">
-            <div class="col-auto">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="remember_me" name="remember_me">
-                    <label class="form-check-label" for="remember_me">
-                        Запомнить меня
-                    </label>
+
+        <form method="POST">
+            <div class="mb-4">
+                <label for="login" class="form-label text-light small text-uppercase tracking-wider">Логин</label>
+                <input type="text" name="login" class="form-control premium-input" id="login" placeholder="Введите ваш логин" required>
+            </div>
+            
+            <div class="mb-4">
+                <div class="d-flex justify-content-between">
+                    <label for="password" class="form-label text-light small text-uppercase tracking-wider">Пароль</label>
+                    <a href="#" class="text-accent text-decoration-none small">Забыли пароль?</a>
                 </div>
+                <input type="password" name="password" class="form-control premium-input" id="password" placeholder="••••••••" required>
             </div>
-            <div class="col-auto">
-                <a href="#">Забыли пароль?</a>
+
+            <div class="mb-4 form-check">
+                <input type="checkbox" class="form-check-input" id="remember_me">
+                <label class="form-check-label text-muted small" for="remember_me">Запомнить меня</label>
             </div>
-        </div>
-    
-        <button type="submit" class="btn btn-dark w-100">Войти</button>
-    </form>
+
+            <button type="submit" class="btn btn-accent w-100 py-3 fw-bold text-uppercase tracking-wider mb-3">Войти</button>
+            
+            <div class="text-center mt-4">
+                <p class="text-muted small">Еще нет аккаунта? <a href="#" class="text-accent text-decoration-none">Зарегистрироваться</a></p>
+            </div>
+        </form>
+    </div>
 </div>
+
+<style>
+    .auth-card {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 30px;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+    }
+
+    .premium-input {
+        background: rgba(255, 255, 255, 0.05) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        border-radius: 12px !important;
+        color: #fff !important;
+        padding: 12px 15px !important;
+        transition: 0.3s !important;
+    }
+
+    .premium-input:focus {
+        background: rgba(255, 255, 255, 0.08) !important;
+        border-color: var(--accent-color) !important;
+        box-shadow: 0 0 15px rgba(157, 129, 255, 0.2) !important;
+        outline: none;
+    }
+
+    .text-accent {
+        color: var(--accent-color);
+        transition: 0.3s;
+    }
+
+    .text-accent:hover {
+        color: #b39dff;
+        text-shadow: 0 0 10px rgba(157, 129, 255, 0.5);
+    }
+
+    .tracking-wider {
+        letter-spacing: 0.1em;
+    }
+</style>
 {% endblock %}
