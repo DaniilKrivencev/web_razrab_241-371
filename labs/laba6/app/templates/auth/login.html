@@ -2,98 +2,47 @@
 
 {% block content %}
 <div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
-    <div class="auth-card p-5 shadow-lg" style="max-width: 450px; width: 100%;">
+    <div class="auth-card p-5 shadow-lg" style="max-width: 450px; width: 100%; background: rgba(30, 31, 38, 0.9); border: 1px solid rgba(255,255,255,0.1); border-radius: 30px;">
         <div class="text-center mb-4">
-            <h2 class="fw-bold text-white mb-2">С возвращением!</h2>
-            <p class="text-white-50">Войдите в свой аккаунт для управления курсами</p>
+            <h2 class="fw-bold mb-2" style="color: #ffffff !important;">С возвращением!</h2>
+            <p style="color: rgba(255,255,255,0.7) !important;">Войдите в свой аккаунт для управления курсами</p>
         </div>
 
         <form method="POST">
             <div class="mb-4">
-                <label for="login" class="form-label text-white small text-uppercase tracking-widest opacity-75">Логин</label>
-                <input type="text" name="login" class="form-control premium-input" id="login" placeholder="Введите ваш логин" required>
+                <label for="login" class="form-label small text-uppercase tracking-widest" style="color: #ffffff !important; opacity: 0.9;">Логин</label>
+                <input type="text" name="login" class="form-control premium-input" id="login" placeholder="Введите ваш логин" required style="background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1); color: #fff;">
             </div>
             
             <div class="mb-4">
                 <div class="d-flex justify-content-between">
-                    <label for="password" class="form-label text-white small text-uppercase tracking-widest opacity-75">Пароль</label>
-                    <a href="#" class="text-accent text-decoration-none small fw-bold">Забыли пароль?</a>
+                    <label for="password" class="form-label small text-uppercase tracking-widest" style="color: #ffffff !important; opacity: 0.9;">Пароль</label>
+                    <a href="#" class="text-decoration-none small fw-bold" style="color: #9d81ff !important;">Забыли пароль?</a>
                 </div>
-                <input type="password" name="password" class="form-control premium-input" id="password" placeholder="••••••••" required>
+                <input type="password" name="password" class="form-control premium-input" id="password" placeholder="••••••••" required style="background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1); color: #fff;">
             </div>
 
             <div class="mb-4 form-check">
                 <input type="checkbox" class="form-check-input" id="remember_me">
-                <label class="form-check-label text-white-50 small" for="remember_me">Запомнить меня</label>
+                <label class="form-check-label small" for="remember_me" style="color: rgba(255,255,255,0.7) !important;">Запомнить меня</label>
             </div>
 
-            <button type="submit" class="btn btn-accent w-100 py-3 fw-bold text-uppercase tracking-widest mb-3">Войти</button>
+            <button type="submit" class="btn btn-accent w-100 py-3 fw-bold text-uppercase tracking-widest mb-3" style="background: #9d81ff !important; color: #ffffff !important; border: none; border-radius: 12px;">Войти</button>
             
             <div class="text-center mt-4">
-                <p class="text-white-50 small">Еще нет аккаунта? <a href="#" class="text-accent text-decoration-none fw-bold">Зарегистрироваться</a></p>
+                <p class="small" style="color: rgba(255,255,255,0.6) !important;">Еще нет аккаунта? <a href="#" class="text-decoration-none fw-bold" style="color: #9d81ff !important;">Зарегистрироваться</a></p>
             </div>
         </form>
     </div>
 </div>
 
 <style>
-    :root {
-        --accent-color: #9d81ff;
-    }
-
-    .auth-card {
-        background: rgba(20, 21, 26, 0.8);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 35px;
-    }
-
-    .premium-input {
-        background: rgba(255, 255, 255, 0.05) !important;
-        border: 1px solid rgba(255, 255, 255, 0.1) !important;
-        border-radius: 14px !important;
-        color: #fff !important;
-        padding: 14px 18px !important;
-        transition: all 0.3s ease !important;
-    }
-
-    .premium-input::placeholder {
-        color: rgba(255, 255, 255, 0.3) !important;
-    }
-
     .premium-input:focus {
-        background: rgba(255, 255, 255, 0.08) !important;
-        border-color: var(--accent-color) !important;
-        box-shadow: 0 0 20px rgba(157, 129, 255, 0.3) !important;
-        transform: translateY(-2px);
-    }
-
-    .btn-accent {
-        background: var(--accent-color);
+        background: rgba(255, 255, 255, 0.1) !important;
+        border-color: #9d81ff !important;
+        box-shadow: 0 0 15px rgba(157, 129, 255, 0.4) !important;
         color: #fff !important;
-        border: none;
-        border-radius: 14px;
-        transition: all 0.3s ease;
-        box-shadow: 0 10px 20px rgba(157, 129, 255, 0.3);
     }
-
-    .btn-accent:hover {
-        background: #b39dff;
-        transform: translateY(-3px);
-        box-shadow: 0 15px 30px rgba(157, 129, 255, 0.4);
-    }
-
-    .text-accent {
-        color: var(--accent-color);
-    }
-
-    .tracking-widest {
-        letter-spacing: 0.15em;
-    }
-
-    .text-white-50 {
-        color: rgba(255, 255, 255, 0.6) !important;
-    }
+    .tracking-widest { letter-spacing: 0.1em; }
 </style>
 {% endblock %}
